@@ -6,7 +6,7 @@ class Foo {
 
 public:
       Foo(){
-        turn=0;// initialize
+        turn=0;// initialize and that variable access by all thred then it is public
       }
 
     void first(function<void()> printFirst) {
