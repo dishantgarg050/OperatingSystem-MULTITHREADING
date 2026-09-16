@@ -42,8 +42,9 @@ public:
 
        // Release both forks
         putLeftFork();
-        fork[(philosopher + 1) % 5].release();
+        // fork[(philosopher + 1) % 5].release();
         putRightFork();
+        fork[(philosopher + 1) % 5].release();
         fork[philosopher].release();
     }
 };
