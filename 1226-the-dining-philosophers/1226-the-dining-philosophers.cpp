@@ -29,12 +29,12 @@ public:
         function<void()> putLeftFork,
         function<void()> putRightFork
     ) {
-        int left = philosopher;
+        int left =  philosopher;
         int right = (philosopher + 1) % 5;
 
         // Always acquire lower-numbered fork first
-        int first = min(left, right);
-        int second = max(left, right);
+         int first = min(left, right);
+         int second = max(left, right);
 
         fork[first].acquire();
         fork[second].acquire();
@@ -49,8 +49,8 @@ public:
         putRightFork();
 
         // Release both forks
-        fork[second].release();
         fork[first].release();
+        fork[second].release();
     }
 };
 
