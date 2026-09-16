@@ -1,51 +1,23 @@
-//#include <mutex>
-//#include <condition_variable>
-//#include <functional>
-
-//using namespace std;
-
-class Semaphore {
-private:
-    int count;
-    mutex mtx;
-    condition_variable cv;
-
-public:
-    Semaphore() {
-        count = 0;
-    }
-
-    void setCount(int a) {
-        count = a;
-    }
-
-    void wait() {
-        unique_lock<mutex> lock(mtx);
-        count--;
-        while (count < 0) {
-            cv.wait(lock);
-        }
-    }
-
-    void signal() {
-        unique_lock<mutex> lock(mtx);
-        count++;
-        while (count <= 0) {
-           cv.notify_one();
-        }
-    }
-};
-
 class DiningPhilosophers {
-private:
-    Semaphore fork[5];
-    mutex m;
+    counting_semaphore<1> fork[5] = {
+    counting_semaphore<1>(1),
+    counting_semaphore<1>(1),
+    counting_semaphore<1>(1),
+    counting_semaphore<1>(1),
+    counting_semaphore<1>(1)
 
+};
+//  binary_semaphore fork[5] = {   
+//         binary_semaphore(1),   
+//         binary_semaphore(1),   
+//         binary_semaphore(1),   
+//         binary_semaphore(1),   
+//         binary_semaphore(1)   
+//     };   
+mutex m;
 public:
     DiningPhilosophers() {
-        for (int i = 0; i < 5; i++) {
-            fork[i].setCount(1);
-        }
+
     }
 
     void wantsToEat(
@@ -56,11 +28,14 @@ public:
         function<void()> putLeftFork,
         function<void()> putRightFork
     ) {
+        philosopher;
+        (philosopher + 1) % 5;
+
         unique_lock<mutex> lock(m);
+        fork[(philosopher + 1) % 5].acquire();
+        fork[philosopher].acquire();
 
-        fork[(philosopher + 1) % 5].wait();
-        fork[philosopher].wait();
-
+        // Pick forks in the order required by LeetCode
         pickLeftFork();
         pickRightFork();
 
@@ -69,7 +44,8 @@ public:
         putLeftFork();
         putRightFork();
 
-        fork[(philosopher + 1) % 5].signal();
-        fork[philosopher].signal();
+        // Release both forks
+        fork[(philosopher + 1) % 5].release();
+        fork[philosopher].release();
     }
 };
