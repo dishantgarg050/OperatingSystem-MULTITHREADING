@@ -31,18 +31,19 @@ public:
         function<void()> putRightFork
     ) {
         unique_lock<mutex> lock(m);
+         pickLeftFork();
+        pickRightFork();
         fork[(philosopher + 1) % 5].acquire();
         fork[philosopher].acquire();
 
         // Pick forks in the order required by LeetCode
-        pickLeftFork();
-        pickRightFork();
+        // pickLeftFork();
+        // pickRightFork();
 
         eat();
 
        // Release both forks
         putLeftFork();
-        // fork[(philosopher + 1) % 5].release();
         putRightFork();
         fork[(philosopher + 1) % 5].release();
         fork[philosopher].release();
