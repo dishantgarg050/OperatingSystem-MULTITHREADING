@@ -21,19 +21,18 @@ public:
 
     void wait() {
         unique_lock<mutex> lock(mtx);
-
-        cv.wait(lock, [this]() {
-            return count > 0;
-        });
-
         count--;
+        while (count < 0) {
+            cv.wait(lock);
+        }
     }
 
     void signal() {
         unique_lock<mutex> lock(mtx);
-
         count++;
-        cv.notify_one();
+        while (count <= 0) {
+           cv.notify_one();
+        }
     }
 };
 
