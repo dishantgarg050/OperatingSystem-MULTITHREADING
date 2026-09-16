@@ -1,3 +1,9 @@
+#include <mutex>
+#include <condition_variable>
+#include <functional>
+
+using namespace std;
+
 
 // ---------------- USER DEFINED SEMAPHORE ----------------
 
@@ -47,10 +53,7 @@ class DiningPhilosophers {
 private:
 
     Semaphore fork[5];
-
-    // Maximum 4 philosophers can try to pick forks
-    Semaphore table;
-mutex m;
+    mutex m;
 public:
 
     DiningPhilosophers() {
@@ -58,8 +61,6 @@ public:
         for (int i = 0; i < 5; i++) {
             fork[i].setCount(1);
         }
-
-        table.setCount(4);
     }
 
     void wantsToEat(
@@ -70,27 +71,45 @@ public:
         function<void()> putLeftFork,
         function<void()> putRightFork
     ) {
-        unique_lock<mutex> lock(m);
-        // Only 4 philosophers can try to pick forks
-        table.wait();
 
-        // Pick both forks
-        fork[philosopher].wait();
-        fork[(philosopher + 1) % 5].wait();
+        int left = philosopher;
+        int right = (philosopher + 1) % 5;
 
-        pickLeftFork();
-        pickRightFork();
+
+        // EVEN philosopher
+        // Left -> Right
+
+        if (philosopher % 2 == 0) {
+            unique_lock<mutex> lock(m);
+            fork[left].wait();
+            fork[right].wait();
+
+            pickLeftFork();
+            pickRightFork();
+        }
+
+
+        // ODD philosopher
+        // Right -> Left
+
+        else {
+            unique_lock<mutex> lock(m);
+            fork[right].wait();
+            fork[left].wait();
+
+            pickRightFork();
+            pickLeftFork();
+        }
+
 
         eat();
+
 
         putLeftFork();
         putRightFork();
 
-        // Release both forks
-        fork[philosopher].signal();
-        fork[(philosopher + 1) % 5].signal();
 
-        // Leave table
-        table.signal();
+        fork[left].signal();
+        fork[right].signal();
     }
 };
