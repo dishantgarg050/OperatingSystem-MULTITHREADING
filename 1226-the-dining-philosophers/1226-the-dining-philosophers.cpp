@@ -313,23 +313,24 @@ public:
 //         int right = philosopher;
 //         if (philosopher % 2 == 0) {
 
-//             // Even philosopher:
-//             // Left -> Right
-//             fork[left].acquire();
+//             // even philosopher:
+//             // right -> left
 //             fork[right].acquire();
+//             fork[left].acquire();
 
-//             pickLeftFork();
-//             pickRightFork();
+//             pickrightFork();
+//             pickleftFork();
 
 //         } else {
 
 //             // Odd philosopher:
-//             // Right -> Left
-//             fork[right].acquire();
+//             // left -> right
 //             fork[left].acquire();
+//             fork[right].acquire();
 
-//             pickRightFork();
-//             pickLeftFork();
+
+//             pickleftFork();
+//             pickrightFork();
 //         }
 
 //         eat();
@@ -412,7 +413,7 @@ public:
 //         int right = philosopher;
 
 //         // EVEN philosopher
-//         // Left -> Right
+//         // right -> left
 
 //         if (philosopher % 2 == 0) {
 //             unique_lock<mutex> lock(m);
@@ -425,7 +426,7 @@ public:
 
 
 //         // ODD philosopher
-//         // Right -> Left
+//         // left -> Right
 
 //         else {
 //             unique_lock<mutex> lock(m);
