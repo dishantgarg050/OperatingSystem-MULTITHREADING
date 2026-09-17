@@ -59,8 +59,8 @@ public:
 
 //     // Default constructor
 //     Semaphore() {
-//      count=0;
-//    }
+//     count=0; 
+//   }
 
 //     void setCount(int a) {
 //         count = a;
@@ -112,7 +112,7 @@ public:
 //         function<void()> putLeftFork,
 //         function<void()> putRightFork
 //     ) {
-//         unique_lock<mutex> lock(m);
+//         unique_lock<mutex> lock(m);         
 //         fork[philosopher].wait();
 //         fork[(philosopher + 1) % 5].wait();
 
@@ -144,9 +144,9 @@ public:
 //         counting_semaphore<1>(1),
 //         counting_semaphore<1>(1)
 //     };
-
+//      mutex m;
 //     // At most 4 philosophers can try to pick forks
-//     counting_semaphore<4> room{4};
+//     counting_semaphore<4> table{4};
 
 // public:
 
@@ -162,7 +162,8 @@ public:
 //     ) {
 
 //         // Allow maximum 4 philosophers into critical section
-//         room.acquire();
+//            unique_lock<mutex> lock(m);
+//         table.acquire();
 
 //         // Pick both forks
 //         fork[philosopher].acquire();
@@ -180,11 +181,10 @@ public:
 //         fork[philosopher].release();
 //         fork[(philosopher + 1) % 5].release();
 
-//         // Leave room
-//         room.release();
+//         // Leave table
+//         table.release();
 //     }
 // };
-
 
 // // ---------------- USER DEFINED SEMAPHORE ----------------
 
@@ -282,8 +282,8 @@ public:
 //     }
 // };
 // -->odd even rule
-// Even philosopher -left fork first, right fork second
-// Odd philosopher -right fork first, left fork second
+// odd philosopher -left fork first, right fork second
+// Even philosopher -right fork first, left fork second
 
 // class DiningPhilosophers {
 
@@ -309,10 +309,8 @@ public:
 //         function<void()> putLeftFork,
 //         function<void()> putRightFork
 //     ) {
-
-//         int left = philosopher;
-//         int right = (philosopher + 1) % 5;
-
+//         int left = (philosopher + 1) % 5;
+//         int right = philosopher;
 //         if (philosopher % 2 == 0) {
 
 //             // Even philosopher:
@@ -343,7 +341,6 @@ public:
 //         fork[right].release();
 //     }
 // };
-
 
 // // ---------------- USER DEFINED SEMAPHORE ----------------
 
@@ -411,21 +408,19 @@ public:
 //         function<void()> putLeftFork,
 //         function<void()> putRightFork
 //     ) {
-
-//         int left = philosopher;
-//         int right = (philosopher + 1) % 5;
-
+//         int left = (philosopher + 1) % 5;
+//         int right = philosopher;
 
 //         // EVEN philosopher
 //         // Left -> Right
 
 //         if (philosopher % 2 == 0) {
 //             unique_lock<mutex> lock(m);
-//             fork[left].wait();
 //             fork[right].wait();
+//             fork[left].wait();
 
-//             pickLeftFork();
-//             pickRightFork();
+//             pickrightFork();
+//             pickleftFork();
 //         }
 
 
@@ -434,11 +429,11 @@ public:
 
 //         else {
 //             unique_lock<mutex> lock(m);
-//             fork[right].wait();
 //             fork[left].wait();
+//             fork[right].wait();
 
+//             pickleftFork();
 //             pickRightFork();
-//             pickLeftFork();
 //         }
 
 
@@ -456,3 +451,4 @@ public:
 
 // BY ALL DEADLOCK AVOIDANCE RULE
 // ==> FINALLY, multiple threads/ph exexute/eat at same time and some are execute/eat one by one -SO,NO DEADLOCK OCCUR
+
