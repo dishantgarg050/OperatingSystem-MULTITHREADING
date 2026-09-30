@@ -14,7 +14,8 @@ public:
         i = 1;
     }
 
-
+// i->odd- firsly print 0 and then odd no. by thread 1 & 2 one by one
+// i->even-firstly print 0 and then even no. by thread 1 & 3 one by one
     void zero(function<void(int)> printNumber) {
         while(i<=n){
 
@@ -23,9 +24,13 @@ public:
              cond.wait(lock);
             }
 
-             if(i<=n){
+             if(i<=n){// internally two case input -2 ,5           
              printNumber(0);
              }
+             //  also write this way if (i>n){
+            //                          break;
+            //  }
+            //  printNumber(0);
              if (i % 2 == 0) {
                  turn = 2;
              } 
@@ -47,7 +52,7 @@ public:
             }
 
              if(i<=n){
-             printNumber(i++);
+             printNumber(i++); // print i and increment in i
              }
 
              turn =0;
