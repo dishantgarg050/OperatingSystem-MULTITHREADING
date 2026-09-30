@@ -8,10 +8,4 @@
 
 | [1115-print-foobar-alternately](https://github.com/dishantgarg050/OperatingSystem-MULTITHREADING/tree/main/1115-print-foobar-alternately/) | Medium |
 
-<!---LeetCode Topics Start-->
-# LeetCode Topics
-## Concurrency
-| Problem Name | Difficulty |
-| ------- | ------- |
 | [1116-print-zero-even-odd](https://github.com/dishantgarg050/OperatingSystem-MULTITHREADING/tree/main/1116-print-zero-even-odd/) | Medium |
-<!---LeetCode Topics End-->
