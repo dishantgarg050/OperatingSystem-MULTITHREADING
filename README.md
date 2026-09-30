@@ -7,3 +7,11 @@
 | GOOD QUESTION for INTERVIEW ALL CONCEPT CLEAR- MULTITHREADING, RACE COND, SYNCHRONIZATION METHOD AND DEADLOCK⭐ | [1226-the-dining-philosophers](https://github.com/dishantgarg050/OperatingSystem-MULTITHREADING/tree/main/1226-the-dining-philosophers/) | Medium |
 
 | [1115-print-foobar-alternately](https://github.com/dishantgarg050/OperatingSystem-MULTITHREADING/tree/main/1115-print-foobar-alternately/) | Medium |
+
+<!---LeetCode Topics Start-->
+# LeetCode Topics
+## Concurrency
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1116-print-zero-even-odd](https://github.com/dishantgarg050/OperatingSystem-MULTITHREADING/tree/main/1116-print-zero-even-odd/) | Medium |
+<!---LeetCode Topics End-->
