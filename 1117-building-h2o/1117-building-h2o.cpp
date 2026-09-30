@@ -30,3 +30,7 @@ public:
         cond.notify_all();       
     }
 };
+
+// jitne 'H'- utni hi HYDROGEN THREADS
+// jitne 'O'- utni hi OXYGEN THREADS
+// like-00HHHHH->2 OXYGEN THREADS and 4 HYDROGEN THREADS
