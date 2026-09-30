@@ -26,7 +26,7 @@ public:
 
 
     void bar(function<void()>printBar){
-        for (int j=1; j<=n; j++){
+        for (int i=1; i<=n; i++){
 
             unique_lock<mutex>lock(m);
                 while(turn!=1){
