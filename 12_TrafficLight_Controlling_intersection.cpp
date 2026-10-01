@@ -24,9 +24,9 @@ public:
     ) {
         unique_lock<mutex> lock(mtx);
 
-        if (Road != roadId) {// 1!=1 flase then turn green and road=1 and car cross that road in both dir
-            turnGreen();
-            Road = roadId;
+        if (Road != roadId) {// 1!=1(A) false means road A is alread y green then car cross the road 
+            turnGreen();// 1!=2(B) true means road A is green and car is on road B then turn the light of road B to green
+            Road = roadId;// change the road to road B is green then car cross on road B
         }
 
         crossCar();
