@@ -35,7 +35,7 @@ public:
 
 int main() {
 
-    TrafficLight trafficLight;
+    TrafficLight tl;
 
     vector<int> cars = {1, 3, 5, 2, 4};
     vector<int> roads = {1,1,1,2,2};
@@ -45,7 +45,7 @@ int main() {
     for (int i = 0; i < cars.size(); i++) {
         threads.push_back(
             thread(
-                [&trafficLight, &cars, &roads, &directions, i]() {
+                [&tl, &cars, &roads, &directions, i]() {
                     int carId = cars[i];
                     int roadId = roads[i];
                     int direction = directions[i];
@@ -58,7 +58,7 @@ int main() {
                         cout << "Car " << carId << " Has Passed Road " << (roadId == 1 ? "A" : "B") << " In Direction " << direction << endl;
                     };
 
-                    trafficLight.carArrived(carId,roadId,direction,turnGreen,crossCar);
+                    tl.carArrived(carId,roadId,direction,turnGreen,crossCar);
                 })
         );
     }
